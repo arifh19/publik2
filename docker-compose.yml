@@ -1,8 +1,32 @@
-web:
+version: '3'
+services:
+  web:
     build: ./
     ports:
-        - "12910:80"
+      - "12910:80"
     expose:
-        - "80"
+      - "80"
+    depends_on:
+      - mysql
     volumes:
-        - ./:/var/www/html/
+      - ./:/var/www/html/
+  mysql:
+    image: mysql:5.7
+    user: "root"
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=komatikugm321
+      - MYSQL_DATABASE=publikbersama
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+     - mysql:db
+    depends_on:
+      - mysql
+    ports:
+     - 12920:80
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: komatikugm321
+
