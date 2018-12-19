@@ -1,0 +1,8 @@
+web:
+    build: ./
+    ports:
+        - "12910:80"
+    expose:
+        - "80"
+    volumes:
+        - ./:/var/www/html/
